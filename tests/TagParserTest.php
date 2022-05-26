@@ -15,8 +15,9 @@ class TagParserTest extends TestCase
 
     /**
      * @dataProvider tagsProvider
+     * @test
      */
-    public function test_it_parses_tags($input, $expected)
+    public function it_parses_tags($input, $expected)
     {
         // $result = $this->parser->parse($input);
         $parser = new TagParser;
