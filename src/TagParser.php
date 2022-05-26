@@ -5,7 +5,7 @@ class TagParser
 {
     public function parse(string $tags) : array 
     {
-        $tags = preg_split("/ ?[,|] ?/", $tags);
+        $tags = preg_split("/ ?[,|!] ?/", $tags);
 
         // Old Version / Legacy Version
         // return array_map(function ($tag) {
