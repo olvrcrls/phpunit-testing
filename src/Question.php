@@ -17,11 +17,18 @@ class Question
     public function answer($answer)
     {
         $this->answer = $answer;
-        return $this->correct = $answer == $this->solution;
+        $this->correct = $answer == $this->solution;
+
+        return $this->answer;
     }
 
     public function solved() // $question->solved()
     {
         return $this->correct;
+    }
+
+    public function answered() 
+    {
+        return isset($this->answer);
     }
 }
