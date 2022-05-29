@@ -3,13 +3,19 @@ namespace App;
 
 class Quiz
 {
-    protected array $questions;
+    protected Questions $questions;
 
     protected $currentQuestion = 1;
+
+    public function __construct()
+    {
+        $this->questions = new Questions;
+    }
     
     public function addQuestion(Question $question)
     {
-        $this->questions[] = $question;
+        $this->questions->add($question);
+        // $this->questions[] = $question;
     }
 
     public function questions()
@@ -19,13 +25,14 @@ class Quiz
 
     public function nextQuestion()
     {
-        if (! isset($this->questions[$this->currentQuestion - 1])) {
-            return false;
-        }
+        return $this->questions->next();
+        // if (! isset($this->questions[$this->currentQuestion - 1])) {
+        //     return false;
+        // }
 
-        $question = $this->questions[$this->currentQuestion - 1];
-        $this->currentQuestion++;
-        return $question;
+        // $question = $this->questions[$this->currentQuestion - 1];
+        // $this->currentQuestion++;
+        // return $question;
     }
 
     public function currentQuestion()
@@ -56,7 +63,9 @@ class Quiz
             throw new \Exception("This quiz has not yet completed.");
         }
 
-        $correct = count($this->correctlyAnsweredQuestions());
+        // $correct = count($this->correctlyAnsweredQuestions());
+
+        $correct = count($this->questions->solved());
 
         $total = count($this->questions);
 
@@ -65,26 +74,21 @@ class Quiz
 
     public function isComplete() 
     {
-        $answeredQuestions = count(array_filter($this->questions, fn($question) => $question->answered()));
-        $totalQuestions = count($this->questions);
+        $answeredQuestions = count($this->questions->answered());
 
-        return $answeredQuestions == $totalQuestions;
+        // $answeredQuestions = count(array_filter($this->questions, fn($question) => $question->answered()));
+        // $totalQuestions = count($this->questions);
+
+        // return count($this->questions->answered()) == $this->questions->count();
+        return $answeredQuestions == $this->questions->count();
     }
 
-    public function isAllQuestionsAnswered()
-    {
-        $total_questions = count($this->questions);
-        $answered_questions = array_filter($this->questions, fn ($question) => !is_null($question->answer()));
-
-        return $total_questions == count($answered_questions);
-    }
-
-    protected function correctlyAnsweredQuestions()
-    {
+    // protected function correctlyAnsweredQuestions()
+    // {
         // return array_filter($this->questions, function ($question) {
         //     return $question->solved();
         // });
 
-        return array_filter($this->questions, fn($question) => $question->solved());
-    }
+    //     return array_filter($this->questions, fn($question) => $question->solved());
+    // }
 }

@@ -17,14 +17,12 @@ class Question
     public function answer($answer)
     {
         $this->answer = $answer;
-        $this->correct = $answer == $this->solution;
-
-        return $this->answer;
+        return $this->solved();
     }
 
     public function solved() // $question->solved()
     {
-        return $this->correct;
+        return $this->answer == $this->solution;
     }
 
     public function answered() 
